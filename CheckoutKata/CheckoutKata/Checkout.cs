@@ -1,17 +1,39 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace CheckoutKata
 {
     public class Checkout:ICheckout
     {
-        public void Scan(string item)
+        private readonly Dictionary<string, decimal> _inventory;
+        private readonly List<string> _items;
+
+        public Checkout(Dictionary<string, decimal> inventory)
         {
-            throw new NotImplementedException();
+            _inventory = inventory;
+            _items = new List<string>();
         }
 
-        public int GetTotalPrice()
+        public void Scan(string item)
         {
-            throw new NotImplementedException();
+            _items.Add(item);
+        }
+
+        public decimal GetTotalPrice()
+        {
+            decimal amount = 0;
+
+            foreach (var item in _items)
+            {
+                decimal itemValue = _inventory
+                                    .Where(i => i.Key == item)
+                                    .Select(i => i.Value)
+                                    .Sum();
+
+                amount = amount + itemValue;
+            }
+
+            return amount;
         }
     }
 }

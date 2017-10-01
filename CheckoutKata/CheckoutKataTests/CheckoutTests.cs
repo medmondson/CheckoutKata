@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using CheckoutKata;
+using CheckoutKata.DataSource;
 using CheckoutKata.Exception;
 using CheckoutKata.Interfaces;
 using CheckoutKata.Models;
@@ -16,15 +17,18 @@ namespace CheckoutKataTests
         [SetUp]
         public void Setup()
         {
-            var items = new List<Item>
+            var dataSource = new DataSource
             {
-                new Item{SKU = "A", Price = 50m, SpecialOffer = new SpecialOffer {Qty = 3, SpecialPrice = 130m}},
-                new Item{SKU = "B", Price = 30m, SpecialOffer = new SpecialOffer {Qty = 2, SpecialPrice = 45m}},
-                new Item{SKU = "C", Price = 20m},
-                new Item{SKU = "D", Price = 15m}
+                Inventory = new List<Item>
+                {
+                    new Item {SKU = "A", Price = 50m, SpecialOffer = new SpecialOffer {Qty = 3, SpecialPrice = 130m}},
+                    new Item {SKU = "B", Price = 30m, SpecialOffer = new SpecialOffer {Qty = 2, SpecialPrice = 45m}},
+                    new Item {SKU = "C", Price = 20m},
+                    new Item {SKU = "D", Price = 15m}
+                }
             };
 
-            _repository = new Repository(items);
+            _repository = new Repository(dataSource);
         }
 
         [Test]

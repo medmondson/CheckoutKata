@@ -10,9 +10,9 @@ namespace CheckoutKata
     {
         private readonly IEnumerable<Item> _inventory;
 
-        public Repository(IEnumerable<Item> inventory)
+        public Repository(IDataSource dataSource)
         {
-            _inventory = inventory;
+            _inventory = dataSource.Inventory;
         }
 
         public Item GetItem(string scannedItem)

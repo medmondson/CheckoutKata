@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using CheckoutKata;
 using CheckoutKata.Exception;
@@ -186,6 +187,13 @@ namespace CheckoutKataTests
 
             //Assert
             Assert.Throws<ItemNotRecognisedException>(() => checkout.Scan("E"));
+        }
+
+        [Test]
+        public void NullRepository_ExpectErrorMessage()
+        {
+            //Assert
+            Assert.Throws<ArgumentNullException>(() => new Checkout(null));
         }
     }
 }

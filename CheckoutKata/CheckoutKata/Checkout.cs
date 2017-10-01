@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CheckoutKata.Interfaces;
 using CheckoutKata.Models;
@@ -12,7 +13,9 @@ namespace CheckoutKata
 
         public Checkout(IRepository repository)
         {
-            _repository = repository;
+            _repository = repository ??
+                throw new ArgumentNullException(nameof(repository));
+
             _scannedItems = new List<Item>();
         }
 
@@ -44,7 +47,7 @@ namespace CheckoutKata
             return runningValue + specialOfferValue;
         }
 
-        private decimal CalculateSpecialOfferValue(IEnumerable<Item> specialOffer)
+        private static decimal CalculateSpecialOfferValue(IEnumerable<Item> specialOffer)
         {
             var specialOfferValue = 0m;
 

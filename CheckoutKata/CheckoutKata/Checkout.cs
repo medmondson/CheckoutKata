@@ -23,7 +23,7 @@ namespace CheckoutKata
 
         public decimal GetTotalPrice()
         {
-            decimal amount = 0;
+            decimal runningValue = 0;
 
             var specialOffers = new List<Item>();
 
@@ -37,13 +37,13 @@ namespace CheckoutKata
                 }
                 else
                 {
-                    amount = amount + item.Price;
+                    runningValue = runningValue + item.Price;
                 }
             }
 
             decimal specialOfferValue = CalculateSpecialOfferValue(specialOffers);
 
-            return amount + specialOfferValue;
+            return runningValue + specialOfferValue;
         }
 
         private decimal CalculateSpecialOfferValue(IEnumerable<Item> specialOffer)

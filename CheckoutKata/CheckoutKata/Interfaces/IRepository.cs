@@ -5,6 +5,6 @@ namespace CheckoutKata.Interfaces
     public interface IRepository
     {
         Item GetItem(string scannedItem);
-        bool ContainsSpecialOffer(string scannedItem);
+        bool ContainsSpecialOffer(Item scannedItem);
     }
 }

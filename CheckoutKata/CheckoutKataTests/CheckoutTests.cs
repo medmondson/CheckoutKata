@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
 using CheckoutKata;
+using CheckoutKata.Exception;
 using CheckoutKata.Interfaces;
 using CheckoutKata.Models;
 
@@ -24,8 +25,6 @@ namespace CheckoutKataTests
 
             _repository = new Repository(items);
         }
-
-        //test adding twice to dictionary
 
         [Test]
         public void SingleItemA_ExpectItemTotal()
@@ -176,6 +175,17 @@ namespace CheckoutKataTests
 
             //Assert
             Assert.AreEqual(535m, total);
+        }
+
+        //item doesn't exist
+        [Test]
+        public void ItemNotExist_ExpectErrorMessage()
+        {
+            //Arrange
+            ICheckout checkout = new Checkout(_repository);
+
+            //Assert
+            Assert.Throws<ItemNotRecognisedException>(() => checkout.Scan("E"));
         }
     }
 }

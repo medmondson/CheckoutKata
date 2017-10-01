@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CheckoutKata.Exception;
 using CheckoutKata.Interfaces;
 using CheckoutKata.Models;
 
@@ -18,18 +19,19 @@ namespace CheckoutKata
         {
                 Item item = _inventory
                     .Where(i => i.SKU == scannedItem)
-                    .Select(i => i).Single();
+                    .Select(i => i).SingleOrDefault();
+
+            if (item == null)
+            {
+                throw new ItemNotRecognisedException();
+            }
 
                 return item;
         }
 
-        public bool ContainsSpecialOffer(string scannedItem)
+        public bool ContainsSpecialOffer(Item scannedItem)
         {
-            bool query = _inventory
-                .Where(i => i.SKU == scannedItem)
-                .Any(i => i.SpecialOffer != null);
-
-            return query;
+            return scannedItem.SpecialOffer != null;
         }
     }
 }

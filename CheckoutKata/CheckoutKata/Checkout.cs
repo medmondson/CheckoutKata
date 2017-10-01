@@ -8,17 +8,17 @@ namespace CheckoutKata
     public class Checkout : ICheckout
     {
         private readonly IRepository _repository;
-        private readonly List<string> _scannedItems;
+        private readonly List<Item> _scannedItems;
 
         public Checkout(IRepository repository)
         {
             _repository = repository;
-            _scannedItems = new List<string>();
+            _scannedItems = new List<Item>();
         }
 
-        public void Scan(string item)
+        public void Scan(string sku)
         {
-            _scannedItems.Add(item);
+            _scannedItems.Add(_repository.GetItem(sku));
         }
 
         public decimal GetTotalPrice()
@@ -29,15 +29,13 @@ namespace CheckoutKata
 
             foreach (var scannedItem in _scannedItems)
             {
-                var item = _repository.GetItem(scannedItem);
-               
                 if (_repository.ContainsSpecialOffer(scannedItem))
                 {
-                    specialOffers.Add(item);
+                    specialOffers.Add(scannedItem);
                 }
                 else
                 {
-                    runningValue = runningValue + item.Price;
+                    runningValue = runningValue + scannedItem.Price;
                 }
             }
 

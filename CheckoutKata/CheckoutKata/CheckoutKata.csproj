@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Checkout.cs" />
+    <Compile Include="Exception\ItemNotRecognisedException.cs" />
     <Compile Include="Interfaces\ICheckout.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\ISpecialOffer.cs" />

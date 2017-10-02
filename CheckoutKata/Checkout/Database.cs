@@ -2,7 +2,7 @@
 using CheckoutKata.Interfaces;
 using CheckoutKata.Models;
 
-namespace Checout
+namespace Checkout
 {
     public class Database : IDataSource
     {

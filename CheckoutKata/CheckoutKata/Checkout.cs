@@ -13,8 +13,10 @@ namespace CheckoutKata
 
         public Checkout(IRepository repository)
         {
-            _repository = repository ??
+            if (repository == null)
                 throw new ArgumentNullException(nameof(repository));
+
+            _repository = repository ;
 
             _scannedItems = new List<Item>();
         }
